@@ -1,19 +1,19 @@
 package com.timepath.ffonline.util;
 
-import static com.timepath.ffonline.render.GameCanvas.TS;
-import static com.timepath.ffonline.render.GameCanvas.gridRes;
-import static com.timepath.ffonline.render.GameCanvas.res;
 import java.awt.Dimension;
 import java.awt.Point;
 
 /**
  *
- * When converting from local view, add camera
- * When converting to local view, subtract camera
- * 
- * @author timepath
+ * When converting from local view, add camera When converting to local view,
+ * subtract camera
+ *
+ * @author TimePath
  */
 public class TileMath {
+    public static final int TS = 32;
+    public static final Dimension gridRes = new Dimension(10, 9);
+    public static final Dimension res = new Dimension(gridRes.width * TS, gridRes.height * TS);
 
     public static Point viewToWorld(int x, int y) {
         int _x = (x - (res.width / 2));
@@ -61,6 +61,7 @@ public class TileMath {
 
     /**
      * Checks if a number is even
+     *
      * @param i the integer to check
      * @return 1 if even, 0 if odd
      */
@@ -70,6 +71,7 @@ public class TileMath {
 
     /**
      * Maximum displayable tiles in a region
+     *
      * @return Region Dimension in tiles
      */
     public static Dimension regionSize() {
@@ -77,4 +79,6 @@ public class TileMath {
                 gridRes.width + even(gridRes.width),
                 gridRes.height + even(gridRes.height));
     }
+
+    public Point cam = new Point(0, 0);
 }

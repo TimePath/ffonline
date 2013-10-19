@@ -1,6 +1,6 @@
 package com.timepath.ffonline.util;
 
-import java.awt.Point;
+import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,14 +10,17 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author timepath
+ * @author TimePath
  */
 public class Player {
 
+    public String sheet;
     private BufferedImage[][] img;
-    public Vector2f loc = new Vector2f(0, 0);
+    public Vector3f loc = new Vector3f(0, 0, 0);
 
     public Player(String sheet) {
+        this.sheet = sheet;
+        sheet = "res/" + sheet;
         int tsx = 16 * 2;
         int tsy = 16 * 3;
         try {
@@ -36,9 +39,11 @@ public class Player {
     }
 
     /**
-     * @return the img
+     * @param set Which set of animations to use
+     * @return The first frame
      */
     public BufferedImage getImg(int set) {
         return img[set][0];
     }
+    private static final Logger LOG = Logger.getLogger(Player.class.getName());
 }

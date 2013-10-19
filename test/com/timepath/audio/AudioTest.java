@@ -1,4 +1,4 @@
-package com.timepath.ffonline.sound;
+package com.timepath.audio;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -16,22 +16,28 @@ import javax.sound.sampled.SourceDataLine;
 
 /**
  *
- * @author timepath
+ * @author TimePath
  */
-public class SoundTest {
+public class AudioTest {
+    private static final int BUFFER_SIZE = 1024 * 8;
 
     public static void main(String... args) {
         try {
-            new SoundTest();
+            new AudioTest();
         } catch (Exception ex) {
-            Logger.getLogger(SoundTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AudioTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private static int BUFFER_SIZE = 1024 * 8;
+    float volume = 8000;
+    float sampleRate = 44100;
+    int sampleSizeInBits = 16;
+    int channels = 2;
+    boolean signed = true;
+    boolean bigEndian = false;
 
-    public SoundTest() throws Exception {
+    public AudioTest() throws Exception {
         AudioFormat af = new AudioFormat(
-                (float) sampleRate,
+                sampleRate,
                 sampleSizeInBits,
                 channels,
                 signed,
@@ -41,7 +47,7 @@ public class SoundTest {
         l.open(af, BUFFER_SIZE);
         byte[] buffer = new byte[BUFFER_SIZE];
         int read;
-        ArrayList<InputStream> iss = new ArrayList<>();
+        ArrayList<InputStream> iss = new ArrayList<InputStream>();
         for (int c = 0; c < 1; c++) {
             for (int i = 0; i < 12 * 5; i++) {
                 iss.add(piano(i, 3, 0.001f));
@@ -75,12 +81,6 @@ public class SoundTest {
         l.close();
         System.out.println(System.currentTimeMillis() - start);
     }
-    float volume = 8000;
-    float sampleRate = 44100;
-    int sampleSizeInBits = 16;
-    int channels = 2;
-    boolean signed = true;
-    boolean bigEndian = false;
 
     private InputStream tone(float duration, float freq) {
         return tone(duration, freq, freq);

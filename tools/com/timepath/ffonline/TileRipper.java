@@ -1,4 +1,4 @@
-package com.timepath.ffonline.tools;
+package com.timepath.ffonline;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -41,9 +41,10 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author timepath
+ * @author TimePath
  */
 public class TileRipper extends JFrame implements ActionListener {
+    private static final int TS = 16;
 
     public static void main(String... args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -109,7 +110,7 @@ public class TileRipper extends JFrame implements ActionListener {
                     if (f.isDirectory()) {
                         return true;
                     }
-                    String suffix = f.getName().substring(f.getName().lastIndexOf(".") + 1);
+                    String suffix = f.getName().substring(f.getName().lastIndexOf('.') + 1);
                     Iterator i = ImageIO.getImageReadersBySuffix(suffix);
                     if (i.hasNext()) {
                         if (i.next() != null) {
@@ -126,7 +127,7 @@ public class TileRipper extends JFrame implements ActionListener {
             });
             c.showOpenDialog(this);
             File f = c.getSelectedFile();
-            if(f == null) {
+            if (f == null) {
                 return;
             }
             try {
@@ -136,10 +137,9 @@ public class TileRipper extends JFrame implements ActionListener {
             }
         }
     }
-    private static int TS = 16;
 
     private void load(File f) throws IOException {
-        LinkedHashMap<Integer, Tile> map = new LinkedHashMap<>();
+        LinkedHashMap<Integer, Tile> map = new LinkedHashMap<Integer, Tile>();
         BufferedImage bi = ImageIO.read(f);
         canvas.setImage(bi);
         canvas.repaint();
@@ -166,7 +166,7 @@ public class TileRipper extends JFrame implements ActionListener {
             }
         }
         System.out.println(map.size());
-        final DefaultListModel<JLabel> m = new DefaultListModel<>();
+        final DefaultListModel<JLabel> m = new DefaultListModel<JLabel>();
         Set<Entry<Integer, Tile>> s = map.entrySet();
         Iterator<Entry<Integer, Tile>> i = s.iterator();
         tiles = new ArrayList();
@@ -183,10 +183,10 @@ public class TileRipper extends JFrame implements ActionListener {
 
     private static class Tile {
 
-        private ArrayList<Rectangle> rects = new ArrayList<>();
+        private ArrayList<Rectangle> rects = new ArrayList<Rectangle>();
         private final BufferedImage img;
 
-        public Tile(BufferedImage img) {
+        Tile(BufferedImage img) {
             this.img = img;
         }
     }
@@ -195,11 +195,11 @@ public class TileRipper extends JFrame implements ActionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel) ((JList) e.getSource()).getSelectionModel();
+            ListSelectionModel lsm = ((JList) e.getSource()).getSelectionModel();
             int firstIndex = e.getFirstIndex();
             int lastIndex = e.getLastIndex();
             boolean isAdjusting = e.getValueIsAdjusting();
-            if(isAdjusting) {
+            if (isAdjusting) {
                 return;
             }
 //            output.append("Event for indexes "
@@ -217,10 +217,9 @@ public class TileRipper extends JFrame implements ActionListener {
                     if (lsm.isSelectedIndex(i)) {
                         System.out.println(i);
                         Tile t = tiles.get(i);
-                        if(e.getSource() == list) {
+                        if (e.getSource() == list) {
                             canvas.search1 = t;
-                        } else 
-                        if(e.getSource() == list2) {
+                        } else if (e.getSource() == list2) {
                             canvas.search2 = t;
                         }
                         canvas.repaint();
@@ -234,7 +233,7 @@ public class TileRipper extends JFrame implements ActionListener {
 
     private class ImagePanel extends JPanel {
 
-        public ImagePanel() {
+        ImagePanel() {
         }
         private BufferedImage img;
 
@@ -264,7 +263,7 @@ public class TileRipper extends JFrame implements ActionListener {
                 }
             }
             if (search2 != null) {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.YELLOW);
                 for (Rectangle r : search2.rects) {
                     g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
                 }

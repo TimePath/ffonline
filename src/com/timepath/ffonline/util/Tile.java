@@ -1,6 +1,5 @@
 package com.timepath.ffonline.util;
 
-import com.timepath.ffonline.render.GameCanvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -11,11 +10,15 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author timepath
+ * @author TimePath
  */
 public class Tile {
 
     private static final Logger LOG = Logger.getLogger(Tile.class.getName());
+
+    public static GraphicsConfiguration graphicsConfig() {
+        return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+    }
     Image tex;
     Color bg = Color.BLACK;
 
@@ -23,7 +26,7 @@ public class Tile {
         if (img == null) {
             return;
         }
-        BufferedImage bi = GameCanvas.graphicsConfig().createCompatibleImage( // createCompatibleVolatileImage
+        BufferedImage bi = graphicsConfig().createCompatibleImage( // createCompatibleVolatileImage
                 img.getWidth(null),
                 img.getHeight(null),
                 BufferedImage.TRANSLUCENT);
