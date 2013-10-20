@@ -20,6 +20,7 @@ import javax.sound.sampled.SourceDataLine;
  */
 public class AudioTest {
     private static final int BUFFER_SIZE = 1024 * 8;
+    private static final Logger LOG = Logger.getLogger(AudioTest.class.getName());
 
     public static void main(String... args) {
         try {

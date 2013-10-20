@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  */
 @Serializable
 public class MovementMessage extends AbstractMessage {
+    private static final Logger LOG = Logger.getLogger(MovementMessage.class.getName());
 
     public int id;
     public Vector3f v;
@@ -26,6 +27,5 @@ public class MovementMessage extends AbstractMessage {
         this.id = id;
         this.v = v;
     }
-    private static final Logger LOG = Logger.getLogger(MovementMessage.class.getName());
 
 }

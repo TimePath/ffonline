@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
  * @author TimePath
  */
 public class Player {
+    private static final Logger LOG = Logger.getLogger(Player.class.getName());
 
     public String sheet;
     private BufferedImage[][] img;
@@ -45,5 +46,4 @@ public class Player {
     public BufferedImage getImg(int set) {
         return img[set][0];
     }
-    private static final Logger LOG = Logger.getLogger(Player.class.getName());
 }

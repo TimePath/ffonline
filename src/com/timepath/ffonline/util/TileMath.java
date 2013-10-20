@@ -2,6 +2,7 @@ package com.timepath.ffonline.util;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +15,7 @@ public class TileMath {
     public static final int TS = 32;
     public static final Dimension gridRes = new Dimension(10, 9);
     public static final Dimension res = new Dimension(gridRes.width * TS, gridRes.height * TS);
+    private static final Logger LOG = Logger.getLogger(TileMath.class.getName());
 
     public static Point viewToWorld(int x, int y) {
         int _x = (x - (res.width / 2));
