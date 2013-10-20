@@ -7,9 +7,9 @@
             <name>FF-online</name>
             <source-roots>
                 <root id="src.dir"/>
-                <root id="src.res.dir" name="Assets"/>
                 <root id="src.test.dir" name="Test Packages"/>
                 <root id="src.tools.dir" name="Tools"/>
+                <root id="src.res.dir" name="Assets"/>
             </source-roots>
             <test-roots/>
         </data>

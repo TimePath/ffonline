@@ -1,3 +1,5 @@
 /dist/
 /*.so
 /hs_err_*.log
+/res/
+/build/

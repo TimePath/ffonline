@@ -16,6 +16,8 @@ import com.jme3.network.Network;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture2D;
+import com.jme3.ui.Picture;
 import com.timepath.ffonline.util.Map;
 import com.timepath.ffonline.util.Player;
 import java.io.IOException;
@@ -46,9 +48,9 @@ public class GameClient extends MyApplication implements ActionListener, AnalogL
     private Geometry playerGeom;
     public Map world = new Map();
 
-        public GameClient(AppState... states) {
-            super(states);
-        }
+    public GameClient(AppState... states) {
+        super(states);
+    }
 
     @Override
     public void onAction(String name, boolean pressed, float tpf) {
@@ -78,18 +80,28 @@ public class GameClient extends MyApplication implements ActionListener, AnalogL
 
         this.inputManager.setCursorVisible(true);
 
-        cam.setParallelProjection(true);
-        zoom(frustumSize);
-
+//        cam.setParallelProjection(true);
+//        zoom(frustumSize);
         Mesh m = new Box(0.5f, 0.75f, 0.5f);
 //        Mesh m = new Quad(32, 48);
         playerGeom = new Geometry("Player", m);
 //        playerGeom.setQueueBucket(RenderQueue.Bucket.Gui);
 
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/ColoredTextured.j3md");
-        mat.setTexture("ColorMap", convert(p[0].getImg(0)));
+        Texture2D tex = convert(p[0].getImg(0));
+        mat.setTexture("ColorMap", tex);
         playerGeom.setMaterial(mat);
-        rootNode.attachChild(playerGeom);
+
+        playerGeom.setLocalTranslation(0, 0, 0);
+
+        Picture p = new Picture("Picture");
+        p.move(0, 0, 1); // make it appear above stats view
+        p.setPosition(0, 0);
+        p.setWidth(tex.getImage().getWidth());
+        p.setHeight(tex.getImage().getHeight());
+        p.setTexture(assetManager, tex, true);
+
+        guiNode.attachChild(p);
 
         inputManager.addMapping("My Action", new KeyTrigger(KeyInput.KEY_SPACE));
         inputManager.addListener(this, "My Action");
@@ -101,7 +113,7 @@ public class GameClient extends MyApplication implements ActionListener, AnalogL
 
     @Override
     public void simpleUpdate(float tpf) {
-//        playerGeom.rotate(tpf * .2f, tpf * .4f, tpf * .3f);
+        playerGeom.rotate(0, 0, tpf * -.3f);
     }
 
     @Override

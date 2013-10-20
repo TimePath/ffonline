@@ -29,7 +29,7 @@ public abstract class MyApplication extends SimpleApplication {
     }
 
     public MyApplication() {
-        this(null);
+        this((AppState[]) null);
     }
 
     protected void zoom(float frustumSize) {
